@@ -1,0 +1,9 @@
+
+> boombox-design-system@1.0.0 build-storybook
+> cd apps/storybook && npm run build --output-dir /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
+
+
+> boombox-design-system@1.0.0 build
+> lerna run build /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
+
+ERR! lerna Unknown argument: /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
