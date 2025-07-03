@@ -1,0 +1,1 @@
+This directory contains tools related to the build process of the design system.

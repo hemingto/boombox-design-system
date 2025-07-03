@@ -1,0 +1,1 @@
+This directory contains static assets related to icons, such as images or fonts.

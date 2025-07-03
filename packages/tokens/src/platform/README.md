@@ -1,0 +1,1 @@
+This directory contains platform-specific design token implementations, such as for web, email, mobile, and print.

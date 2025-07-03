@@ -1,0 +1,1 @@
+This directory contains layout components, which are used to structure and arrange content on a page (e.g., Grid, Stack, Container).

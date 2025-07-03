@@ -1,0 +1,1 @@
+This directory contains primitive components specifically designed for email templates.

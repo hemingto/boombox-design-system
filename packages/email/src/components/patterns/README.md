@@ -1,0 +1,1 @@
+This directory contains pattern components specifically designed for email templates.

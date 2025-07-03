@@ -1,0 +1,44 @@
+# Automatically label PRs based on file changes
+
+components:
+  - packages/components/**/*
+
+tokens:
+  - packages/tokens/**/*
+
+icons:
+  - packages/icons/**/*
+
+utils:
+  - packages/utils/**/*
+
+email:
+  - packages/email/**/*
+
+documentation:
+  - "**/*.md"
+  - apps/documentation/**/*
+
+storybook:
+  - apps/storybook/**/*
+  - "**/*.stories.*"
+
+tests:
+  - "**/*.test.*"
+  - "**/__tests__/**/*"
+  - "**/tests/**/*"
+
+ci/cd:
+  - .github/**/*
+  - "**/.eslintrc.*"
+  - "**/jest.config.*"
+  - "**/tsconfig.json"
+  - package.json
+  - lerna.json
+
+accessibility:
+  - "**/*a11y*"
+  - "**/*accessibility*"
+
+breaking-change:
+  - packages/*/BREAKING_CHANGES.md 

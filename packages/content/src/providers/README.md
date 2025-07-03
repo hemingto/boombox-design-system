@@ -1,0 +1,1 @@
+This directory contains React context providers for content-related data or functionality.

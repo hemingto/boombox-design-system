@@ -1,0 +1,1 @@
+This directory contains navigation components, such as headers, footers, menus, and pagination.

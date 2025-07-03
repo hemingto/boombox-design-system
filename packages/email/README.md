@@ -1,0 +1,1 @@
+This package contains components and utilities specifically for building email templates.

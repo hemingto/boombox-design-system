@@ -1,0 +1,1 @@
+This directory contains the raw SVG icon files or icon definitions.

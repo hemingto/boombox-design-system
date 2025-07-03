@@ -1,0 +1,1 @@
+This directory contains the source code for icon components and related utilities.

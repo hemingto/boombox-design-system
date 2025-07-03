@@ -1,0 +1,1 @@
+This directory contains custom React hooks used across components to encapsulate reusable logic.

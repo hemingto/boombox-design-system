@@ -1,0 +1,1 @@
+This directory contains tools specific to the icons package, such as SVG optimization or icon generation scripts.

@@ -1,0 +1,1 @@
+This directory contains the source code for content-related assets and utilities.

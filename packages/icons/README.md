@@ -1,0 +1,1 @@
+This package contains all icons used within the design system, often as SVG components.

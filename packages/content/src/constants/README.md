@@ -1,0 +1,1 @@
+This directory contains constant values used within the content package.

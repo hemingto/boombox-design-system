@@ -1,0 +1,25 @@
+{
+  "version": "independent",
+  "npmClient": "npm",
+  "command": {
+    "version": {
+      "allowBranch": ["main", "develop"],
+      "conventionalCommits": true,
+      "message": "chore(release): publish packages"
+    },
+    "publish": {
+      "registry": "https://registry.npmjs.org/",
+      "ignoreChanges": [
+        "**/*.md",
+        "**/*.test.{js,ts,tsx}",
+        "**/*.stories.{js,ts,tsx}",
+        "**/stories/**",
+        "**/tests/**",
+        "**/__tests__/**"
+      ]
+    }
+  },
+  "packages": [
+    "packages/*"
+  ]
+}

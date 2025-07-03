@@ -1,0 +1,1 @@
+This directory contains build outputs for the content package.

@@ -1,0 +1,1 @@
+This directory contains utility functions for icon processing or manipulation.

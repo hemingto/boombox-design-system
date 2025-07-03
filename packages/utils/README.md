@@ -1,0 +1,1 @@
+This package provides a collection of general-purpose utility functions that can be used across different parts of the design system.

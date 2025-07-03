@@ -1,0 +1,1 @@
+This directory contains base design tokens, such as colors, typography, spacing, borders, shadows, breakpoints, and z-index values.

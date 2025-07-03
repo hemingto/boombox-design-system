@@ -1,0 +1,1 @@
+This directory houses various development tools, scripts, and configurations used to build, test, and manage the design system.

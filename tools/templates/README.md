@@ -1,0 +1,1 @@
+This directory contains templates for generating new components, stories, and tests.

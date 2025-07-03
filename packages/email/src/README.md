@@ -1,0 +1,1 @@
+This directory contains the source code for email-related components and templates.

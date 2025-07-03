@@ -1,0 +1,1 @@
+This directory contains semantic design tokens, which apply meaning to base tokens, often used for theming (light/dark) and brand variants.

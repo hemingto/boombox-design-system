@@ -1,0 +1,1 @@
+This directory contains GitHub-related configurations, such as workflows for continuous integration, deployment, and other automation.

@@ -1,0 +1,1 @@
+This directory contains the build outputs for the design tokens, such as Tailwind CSS configuration, CSS variables, SCSS variables, and Figma tokens.

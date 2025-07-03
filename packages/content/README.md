@@ -1,0 +1,1 @@
+This package manages content-related assets, such as locales, constants, and schemas.

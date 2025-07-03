@@ -1,0 +1,42 @@
+# Auto-assign configuration for pull requests
+
+# Assign reviewers to PRs
+addReviewers: true
+
+# Assign assignees to PRs  
+addAssignees: false
+
+# Number of reviewers to assign
+numberOfReviewers: 2
+
+# Reviewers for different components
+reviewers:
+  - calvinhemington  # Replace with actual GitHub usernames
+  # Add your team members here
+
+# Skip certain keywords in PR titles
+skipKeywords:
+  - WIP
+  - wip
+  - draft
+
+# Review assignment by file patterns
+fileAssignees:
+  # Components team
+  'packages/components/**':
+    - calvinhemington
+    
+  # Tokens team
+  'packages/tokens/**':
+    - calvinhemington
+    
+  # Documentation team  
+  '**/*.md':
+    - calvinhemington
+    
+  # CI/CD team
+  '.github/**':
+    - calvinhemington
+
+# Skip if PR is from these users (bots, etc.)
+skipDraft: true 

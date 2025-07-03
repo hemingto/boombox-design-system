@@ -1,0 +1,1 @@
+This directory holds the configuration files for Storybook, which is used for developing, documenting, and testing UI components.

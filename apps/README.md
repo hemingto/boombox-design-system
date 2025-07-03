@@ -1,0 +1,1 @@
+This directory contains various applications or demonstration projects that utilize the components and tokens from the design system.

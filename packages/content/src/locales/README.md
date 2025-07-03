@@ -1,0 +1,1 @@
+This directory contains locale-specific content files.

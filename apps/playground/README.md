@@ -1,0 +1,1 @@
+This directory contains a playground application for testing and demonstrating design system components in a live environment.

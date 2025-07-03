@@ -1,0 +1,1 @@
+This directory contains a template for generating new test files.

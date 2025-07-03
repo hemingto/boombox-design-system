@@ -1,0 +1,1 @@
+This directory contains tools and configurations for testing the design system components and packages.

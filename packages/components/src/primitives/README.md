@@ -1,0 +1,1 @@
+This directory contains primitive UI components, which are the smallest, most basic building blocks of the design system (e.g., Button, Input, Typography).

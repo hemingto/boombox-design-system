@@ -1,0 +1,1 @@
+This directory contains utility functions specific to the components package, such as class name concatenation, variant handling, and theme-related helpers.

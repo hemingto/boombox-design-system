@@ -1,0 +1,1 @@
+This directory contains React context providers that manage global state or provide shared functionality to components.

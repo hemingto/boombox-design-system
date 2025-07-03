@@ -1,0 +1,1 @@
+This is the core directory for the design system, containing individual packages for design tokens, UI components, email templates, content, icons, and utility functions.

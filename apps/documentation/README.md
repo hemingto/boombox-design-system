@@ -1,0 +1,1 @@
+This directory contains documentation-related applications or generated documentation for the design system.

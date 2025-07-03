@@ -1,0 +1,1 @@
+This directory contains layout components for structuring email content.

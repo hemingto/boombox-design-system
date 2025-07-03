@@ -1,0 +1,1 @@
+This directory contains theme-related files for email templates.

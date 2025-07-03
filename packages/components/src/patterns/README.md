@@ -1,0 +1,1 @@
+This directory contains pattern components, which are combinations of primitive components forming more complex UI elements (e.g., Card, Modal, Dropdown).

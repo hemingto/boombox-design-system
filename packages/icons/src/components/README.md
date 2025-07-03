@@ -1,0 +1,1 @@
+This directory contains icon components, typically React components that render SVG icons.

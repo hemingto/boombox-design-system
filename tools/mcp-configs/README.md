@@ -1,0 +1,1 @@
+This directory contains configurations for Model Context Protocol (MCP) servers, used for integrating external data sources.

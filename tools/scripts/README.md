@@ -1,0 +1,1 @@
+This directory contains various scripts for automating tasks within the design system development workflow.

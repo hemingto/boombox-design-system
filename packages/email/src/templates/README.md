@@ -1,0 +1,1 @@
+This directory contains various email templates, categorized by type (transactional, marketing, lifecycle).

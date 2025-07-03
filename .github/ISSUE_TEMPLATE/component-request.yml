@@ -1,0 +1,113 @@
+name: 🎨 Component Request
+description: Request a new component for the Boombox Design System
+title: "[Component]: "
+labels: ["enhancement", "component-request", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for requesting a new component! This helps us understand what's needed for the design system.
+        
+  - type: input
+    id: component-name
+    attributes:
+      label: Component Name
+      description: What should this component be called?
+      placeholder: "e.g., DatePicker, FileUpload, DataTable"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category should this component belong to?
+      options:
+        - "Primitives (basic building blocks)"
+        - "Patterns (complex behaviors)"
+        - "Layouts (structural components)"
+        - "Navigation (wayfinding)"
+        - "Forms (data input)"
+        - "Feedback (user communication)"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Describe the problem this component would solve
+      placeholder: "As a user, I need to... so that I can..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Component Description
+      description: Detailed description of the component's functionality
+      placeholder: "This component should..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: |
+        List specific requirements for this component
+      placeholder: |
+        - Should support keyboard navigation
+        - Must be accessible (WCAG 2.1 AA)
+        - Should work with React 18+
+        - Must support dark/light themes
+    validations:
+      required: true
+
+  - type: textarea
+    id: design-specs
+    attributes:
+      label: Design Specifications
+      description: Link to designs, wireframes, or visual examples
+      placeholder: "Figma link, screenshots, or existing examples from other design systems"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgent is this component?
+      options:
+        - "High (blocking current work)"
+        - "Medium (needed for upcoming features)"
+        - "Low (nice to have)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Current Alternatives
+      description: How are you currently solving this problem?
+      placeholder: "Custom implementation, third-party library, workaround, etc."
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples from Other Systems
+      description: Links to similar components in other design systems
+      placeholder: |
+        - Material UI: https://...
+        - Chakra UI: https://...
+        - Ant Design: https://...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help implement this component?
+      options:
+        - label: "I'm willing to help with design specifications"
+        - label: "I'm willing to help with implementation"
+        - label: "I'm willing to help with documentation"
+        - label: "I'm willing to help with testing" 

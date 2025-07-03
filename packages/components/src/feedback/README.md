@@ -1,0 +1,1 @@
+This directory contains feedback components, which provide visual cues or information to users (e.g., EmptyState, LoadingState, ErrorBoundary).

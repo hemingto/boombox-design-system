@@ -1,0 +1,1 @@
+This package contains all design tokens (e.g., colors, typography, spacing) that define the visual language of the design system.

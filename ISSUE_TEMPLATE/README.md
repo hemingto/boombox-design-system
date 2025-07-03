@@ -1,0 +1,1 @@
+This directory contains templates for GitHub issues, guiding users on how to report bugs, request features, or propose enhancements.

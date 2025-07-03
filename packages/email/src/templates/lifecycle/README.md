@@ -1,0 +1,1 @@
+This directory contains lifecycle email templates.
