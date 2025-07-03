@@ -4,47 +4,93 @@ https://www.chromatic.com/docs/cli
 
 Authenticating with Chromatic
     → Connecting to https://index.chromatic.com
+Authenticated with Chromatic
+    → Using project token '****************5c43'
+Retrieving git information
 ⚠ Using outdated package
 You are using an outdated version of the Chromatic CLI (v7.6.0).
 A new major version is available (v13.1.2).
 Run npm install chromatic@latest --save-dev to upgrade.
-Authenticated with Chromatic
-    → Using project token '****************5c43'
-Retrieving git information
 Retrieved git information
-    → Commit 'c4d54e0' on branch 'test-chromatic'; no ancestor found
+    → Commit '23c3937' on branch 'test-chromatic'; no ancestor found
 Collecting Storybook metadata
 Collected Storybook metadata
-    → ; no supported addons found
+    → Storybook 7.6.20 for React; no supported addons found
 Initializing build
 Initialized build
-    → Build 1 initialized
+    → Build 4 initialized
 Building your Storybook
-    → Running command: npm run build-storybook -- --output-dir /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
-The CLI tried to run your build-storybook script, but the command failed. This indicates a problem with your Storybook. Here's what to do:
+    → Running command: npm run build-storybook -- --output-dir /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--12657-vaxWW8KbZ9GA
+Storybook built in 15 seconds
+    → View build log at /Users/calvinhemington/Desktop/boombox-design-system/build-storybook.log
+Publish your built Storybook
+    → Validating Storybook files
+⚠ Unexpected build directory
+The CLI tried to build your Storybook at /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--12657-vaxWW8KbZ9GA
+but instead it was built at /Users/calvinhemington/Desktop/boombox-design-system/apps/storybook/storybook-static
+Make sure your "build-storybook" script forwards the --output-dir (-o) flag to the build-storybook CLI.
 
-- Check the Storybook build log printed below.
-- Run npm run build-storybook or yarn build-storybook yourself and make sure it outputs a valid Storybook by opening the generated index.html in your browser.
-- Review the build-storybook CLI options at https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook
-
-Command failed with exit code 1: npm run build-storybook -- --output-dir /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
-
-ℹ Build command:
-npm run build-storybook -- --output-dir /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
-
-ℹ Runtime metadata:
-{
-  "nodePlatform": "darwin",
-  "nodeVersion": "22.17.0",
-  "packageManager": "npm",
-  "packageManagerVersion": "10.9.2"
-}
-
-ℹ Storybook build output:
-/Users/calvinhemington/Desktop/boombox-design-system/build-storybook.log
-
-> boombox-design-system@1.0.0 build-storybook
-> cd apps/storybook && npm run build --output-dir /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
-> boombox-design-system@1.0.0 build
-> lerna run build /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
-ERR! lerna Unknown argument: /var/folders/_2/cscqnkkn689g1wrlvkpt3h380000gn/T/chromatic--10375-wWX0MHGK2qav
+It appears you're using "npm run" which is known to cause this problem.
+You can fix this by invoking build-storybook from your "build-storybook" script directly.
+Publishing your built Storybook
+    → Retrieving target location
+    → Starting publish
+    → [                    ] 1%
+    → [==                  ] 12%
+    → [===                 ] 14%
+    → [====                ] 18%
+    → [====                ] 22%
+    → [=====               ] 26%
+    → [======              ] 29%
+    → [======              ] 31%
+    → [=======             ] 35%
+    → [=======             ] 37%
+    → [========            ] 39%
+    → [========            ] 40%
+    → [========            ] 41%
+    → [========            ] 42%
+    → [=========           ] 44%
+    → [=========           ] 45%
+    → [=========           ] 47%
+    → [==========          ] 48%
+    → [==========          ] 49%
+    → [==========          ] 50%
+    → [===========         ] 53%
+    → [===========         ] 55%
+    → [===========         ] 57%
+    → [=============       ] 63%
+    → [=============       ] 64%
+    → [=============       ] 67%
+    → [==============      ] 70%
+    → [===============     ] 74%
+    → [===============     ] 76%
+    → [================    ] 82%
+    → [=================   ] 84%
+    → [=================   ] 85%
+    → [==================  ] 91%
+    → [=================== ] 95%
+    → [====================] 98%
+    → [====================] 100%
+Publish complete in 14 seconds
+    → View your Storybook at https://6866cd82f47ce2bae888167e-sbwoxddjty.chromatic.com
+Verifying your Storybook
+    → This may take a few minutes
+Started build 4
+    → View build details at https://www.chromatic.com/build?appId=6866cd82f47ce2bae888167e&number=4
+Running 8 tests
+    → This may take a few minutes
+ℹ Speed up Continuous Integration
+Your project is linked to GitHub so Chromatic will report results there.
+This means you can pass the --exit-once-uploaded flag to skip waiting for build results.
+Read more here: https://www.chromatic.com/docs/cli#chromatic-options
+    → [===                 ] 1/8  Button › Primary 
+    → [=====               ] 2/8  Button › Secondary 
+    → [========            ] 3/8  Button › Outline 
+    → [==========          ] 4/8  Button › Ghost 
+    → [=============       ] 5/8  Button › Small 
+    → [===============     ] 6/8  Button › Medium 
+    → [==================  ] 7/8  Button › Large 
+    → [====================] 8/8  Button › Disabled 
+✔ Build 4 passed!
+8 visual changes were found in this build.
+ℹ View build details at https://www.chromatic.com/build?appId=6866cd82f47ce2bae888167e&number=4
