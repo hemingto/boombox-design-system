@@ -34,10 +34,10 @@ CHROMATIC_PROJECT_TOKEN=your_chromatic_token_here
 
 ### 3. Branch Protection Rules
 
-Set up branch protection for `main`:
+Set up branch protection for `master`:
 
 1. Go to Settings → Branches → Add rule
-2. Branch pattern: `main`
+2. Branch pattern: `master`
 3. Enable:
    - ✅ Require status checks to pass
    - ✅ Require branches to be up to date
@@ -81,7 +81,7 @@ Update these files with your specific details:
    - Percy screenshot comparison
 
 3. **Storybook Deploy** (`.github/workflows/storybook-deploy.yml`)
-   - Deploys to GitHub Pages on main branch
+   - Deploys to GitHub Pages on master branch
    - Notifies team via Slack
 
 4. **Package Publishing** (`.github/workflows/publish.yml`)
@@ -110,7 +110,7 @@ Update these files with your specific details:
    - Automatic reviewer assignment
    - Manual code review
    - Approval required
-7. **Merge to main:**
+7. **Merge to master:**
    - Storybook auto-deploys
    - Component available immediately
 
@@ -192,4 +192,4 @@ npm run build-storybook
 
 ---
 
-**Remember:** Test these workflows on a feature branch first before enabling on main! 
+**Remember:** Test these workflows on a feature branch first before enabling on master! 
