@@ -2,9 +2,14 @@ name: Auto Assign
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened, ready_for_review]
   issues:
     types: [opened]
+
+permissions:
+  pull-requests: write
+  issues: write
+  contents: read
 
 jobs:
   auto-assign:
@@ -25,12 +30,12 @@ jobs:
   add-labels:
     runs-on: ubuntu-latest
     steps:
-      - name: Label based on file changes
-        if: github.event_name == 'pull_request'
-        uses: actions/labeler@v4
+      - uses: actions/checkout@v4
+      - name: Label PR
+        uses: actions/labeler@v5
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
           configuration-path: '.github/labeler.yml'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add triage label to issues
         if: github.event_name == 'issues'
