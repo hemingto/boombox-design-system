@@ -194,6 +194,68 @@ const tokens = {
 - Implement platform-specific token variations (web, email, mobile)
 - Create theme variants (light, dark, high-contrast)
 
+## Documentation Guidelines
+
+### Documentation Structure and Placement
+
+#### Primary Documentation Location: `apps/documentation/`
+All comprehensive guides, tutorials, and detailed documentation MUST be placed in the dedicated Next.js documentation app:
+
+```
+apps/documentation/app/
+├── getting-started/          # Installation, setup, quick start
+├── guides/                   # Development guides
+│   ├── testing/              # Testing strategies and examples
+│   ├── contributing/         # Contribution guidelines
+│   ├── theming/             # Theme customization
+│   ├── accessibility/        # A11y guidelines
+│   └── deployment/          # Deployment guides
+├── components/               # Component documentation
+│   ├── primitives/           # Basic components
+│   ├── patterns/             # Complex components
+│   └── layouts/              # Layout components
+├── design-tokens/            # Token documentation
+├── examples/                 # Usage examples
+└── api-reference/            # API documentation
+```
+
+#### Quick Reference Documentation: Root Level
+Keep essential quick-reference docs at the repository root for immediate access:
+
+```
+/
+├── README.md              # Main overview & quick start
+├── TESTING.md            # Quick testing reference
+├── CONTRIBUTING.md        # How to contribute
+├── CHANGELOG.md          # Version history
+├── ARCHITECTURE.md       # System architecture
+└── CODE_OF_CONDUCT.md    # Community guidelines
+```
+
+#### Documentation Creation Rules
+1. **Comprehensive Guides**: Create in `apps/documentation/app/guides/[guide-name]/page.tsx`
+2. **Component Documentation**: Create in `apps/documentation/app/components/[category]/[component]/page.tsx`
+3. **Quick References**: Create as `.md` files in the root directory
+4. **Cross-Reference**: Root-level docs should reference the comprehensive documentation app
+5. **Interactive Examples**: Use the documentation app for live component demos
+6. **API Documentation**: Generate from TypeScript interfaces in the documentation app
+
+#### Documentation Content Standards
+- **Use TypeScript examples** - All code examples must be TypeScript
+- **Include accessibility notes** - Document ARIA attributes and keyboard navigation
+- **Show responsive behavior** - Document breakpoint behavior
+- **Provide complete examples** - Include all necessary imports
+- **Follow Next.js patterns** - Use App Router conventions
+- **Test all examples** - Ensure code examples actually work
+
+#### When Creating New Documentation
+1. **Determine scope**: Comprehensive guide → documentation app, Quick reference → root level
+2. **Follow the established structure** above
+3. **Cross-reference appropriately** between root docs and documentation app
+4. **Update navigation** in the documentation app when adding new sections
+5. **Include interactive examples** when documenting components
+6. **Maintain consistency** with existing documentation patterns
+
 ## Content Management Rules
 
 ### Internationalization
@@ -568,6 +630,14 @@ When helping with this design system:
    - next.config.js optimization
    - TypeScript configuration
    - ESLint/Prettier setup
+
+8. **Documentation Creation**: When creating documentation:
+   - **Comprehensive guides** → Create in `apps/documentation/app/guides/[guide-name]/page.tsx`
+   - **Component docs** → Create in `apps/documentation/app/components/[category]/[component]/page.tsx`
+   - **Quick references** → Create as `.md` files in root directory
+   - Always include TypeScript examples and accessibility notes
+   - Cross-reference between root docs and documentation app
+   - Update navigation when adding new documentation sections
 
 ## Common Patterns to Follow
 

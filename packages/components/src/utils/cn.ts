@@ -1,4 +1,6 @@
-// Simple className utility for combining classes
-export function cn(...classes: (string | undefined | null | false)[]): string {
-  return classes.filter(Boolean).join(' ');
+import { clsx, type ClassValue } from 'clsx';
+
+// Enhanced className utility for combining and deduplicating classes
+export function cn(...inputs: ClassValue[]): string {
+  return clsx(inputs);
 }
