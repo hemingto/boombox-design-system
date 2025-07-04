@@ -175,7 +175,7 @@ describe('Button Component', () => {
     });
 
     it('applies custom data attributes', () => {
-      renderButton({ 'data-testid': 'custom-button' });
+      renderButton({ 'data-testid': 'custom-button' } as any);
       expect(screen.getByTestId('custom-button')).toBeInTheDocument();
     });
 
@@ -191,7 +191,7 @@ describe('Button Component', () => {
     it('has no accessibility violations', async () => {
       const { container } = renderButton();
       const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      (expect(results) as any).toHaveNoViolations();
     });
 
     it('has proper ARIA attributes when loading', async () => {
