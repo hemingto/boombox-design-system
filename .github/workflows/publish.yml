@@ -61,12 +61,12 @@ jobs:
 
       - name: Create GitHub Release (workflow_dispatch)
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.version.outputs.new_tag }}
-          release_name: Release ${{ steps.version.outputs.new_version }}
+          name: Release ${{ steps.version.outputs.new_version }}
           body: |
             ## Changes
             Auto-generated release for version ${{ steps.version.outputs.new_version }}
