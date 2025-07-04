@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
-import { Button } from './Button';
+import { Button, type ButtonProps } from './Button';
 
 // Extend Jest matchers
 expect.extend(toHaveNoViolations);
@@ -253,6 +253,7 @@ describe('Button Component', () => {
         renderSpy();
         return <Button {...props} />;
       });
+      TestButton.displayName = 'TestButton';
 
       const { rerender } = render(<TestButton>Test</TestButton>);
       expect(renderSpy).toHaveBeenCalledTimes(1);

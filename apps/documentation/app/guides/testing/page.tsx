@@ -90,7 +90,7 @@ export default function TestingGuidePage() {
               <p className="text-sm text-yellow-700">
                 <strong>Work in Progress:</strong> This documentation page is being developed. 
                 The complete testing guide with examples and best practices is available in the 
-                repository's <code>TESTING.md</code> file.
+                repository&apos;s <code>TESTING.md</code> file.
               </p>
             </div>
           </div>
