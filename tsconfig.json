@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2021",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -8,20 +8,30 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@boombox/tokens": ["./packages/tokens/src"],
+      "@boombox/components": ["./packages/components/src"],
+      "@boombox/email": ["./packages/email/src"],
+      "@boombox/content": ["./packages/content/src"],
+      "@boombox/icons": ["./packages/icons/src"],
+      "@boombox/utils": ["./packages/utils/src"]
+    }
   },
   "include": [
-    "packages/*/src/**/*",
-    "apps/*/src/**/*"
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    "dist",
-    "build"
+    "node_modules"
   ]
 }

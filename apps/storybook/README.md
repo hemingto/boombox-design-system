@@ -1,1 +1,0 @@
-This directory contains the Storybook application, which serves as the primary development environment and documentation portal for UI components.

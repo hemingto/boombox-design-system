@@ -1,11 +1,13 @@
 {
   "version": "independent",
   "npmClient": "npm",
+  "useWorkspaces": true,
   "command": {
     "version": {
-      "allowBranch": ["main", "develop"],
+      "allowBranch": ["main", "develop", "master"],
       "conventionalCommits": true,
-      "message": "chore(release): publish packages"
+      "message": "chore(release): publish packages",
+      "createRelease": "github"
     },
     "publish": {
       "registry": "https://registry.npmjs.org/",
@@ -17,9 +19,14 @@
         "**/tests/**",
         "**/__tests__/**"
       ]
+    },
+    "bootstrap": {
+      "hoist": true,
+      "npmClientArgs": ["--no-package-lock"]
     }
   },
   "packages": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ]
 }

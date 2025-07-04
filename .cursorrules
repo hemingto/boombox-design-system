@@ -1,0 +1,613 @@
+# Cursor Rules for Boombox Design System
+
+## Project Overview
+This is a comprehensive design system specifically built for Next.js applications using TypeScript and Tailwind CSS. All components MUST be Next.js compatible and use TypeScript with strict typing. Styling is done exclusively with Tailwind CSS utility classes.
+
+## Core Technologies & Requirements
+- **Framework**: Next.js 14+ (App Router preferred)
+- **Language**: TypeScript 5+ (strict mode enabled)
+- **Styling**: Tailwind CSS 3+ (primary styling method)
+- **React**: React 18+ with Server Components support
+- **Build Tools**: Turbo (monorepo), Next.js built-in bundler
+- **Testing**: Jest, React Testing Library, Playwright, Chromatic
+- **Documentation**: Storybook, MDX, Next.js docs site
+- **Email**: React Email, MJML, Nodemailer
+
+## Next.js Specific Requirements
+- Components must work with both Client and Server Components
+- Use 'use client' directive only when necessary (interactivity, hooks)
+- Support Next.js Image component integration
+- Compatible with Next.js routing (App Router)
+- Support Next.js middleware and API routes
+- Optimize for Next.js SSR/SSG when applicable
+
+## Architecture Patterns
+
+### Component Structure
+- Follow atomic design principles: atoms → molecules → organisms → templates
+- Use compound component patterns for complex UI elements
+- Implement polymorphic components with `as` prop when appropriate
+- Prefer composition over inheritance
+- Use forwardRef for DOM elements that need ref access
+
+### File Organization
+```
+ComponentName/
+├── ComponentName.tsx          # Main component
+├── ComponentName.stories.tsx  # Storybook stories
+├── ComponentName.test.tsx     # Unit tests
+├── ComponentName.module.css   # Component styles (if needed)
+├── variants.ts               # Variant definitions
+├── types.ts                  # Type definitions
+└── index.ts                  # Barrel export
+```
+
+### TypeScript Guidelines (Next.js Specific)
+- Use strict mode with no implicit any
+- All components must have proper TypeScript interfaces
+- Use Next.js types: NextPage, GetStaticProps, etc.
+- Prefer type unions over enums for variants
+- Use const assertions for readonly objects
+- Implement proper generic constraints
+- Create reusable utility types in shared/types
+- Use satisfies operator for type narrowing
+- Export component props interfaces for external use
+
+### Tailwind CSS Styling Requirements
+- Use ONLY Tailwind utility classes for styling
+- NO custom CSS unless absolutely necessary
+- Follow Tailwind's responsive prefix system (sm:, md:, lg:, xl:, 2xl:)
+- Use Tailwind's built-in color system and spacing scale
+- Implement dark mode using Tailwind's dark: prefix
+- Use @apply directive sparingly and only for complex repeated patterns
+- Configure Tailwind through tailwind.config.js for custom tokens
+- Use Tailwind CSS IntelliSense for autocompletion
+
+## Component Development Rules (Next.js + TypeScript + Tailwind)
+
+### Component Structure Requirements
+- All components MUST be TypeScript (.tsx files)
+- Use Next.js 13+ App Router conventions
+- Components should work in both Client and Server environments
+- Use 'use client' directive only for interactive components
+- Support Next.js Image component when dealing with images
+- Follow Next.js naming conventions for pages and components
+
+### Props and APIs (TypeScript)
+- Every component MUST have a TypeScript interface for props
+- Use discriminated unions for variant props
+- Implement proper defaultProps or default parameters
+- Create size variants: xs, sm, md, lg, xl
+- Support both controlled and uncontrolled patterns
+- Include loading and error states for async components
+- Export props interfaces for external consumption
+
+### Tailwind CSS Component Patterns
+- Use Tailwind utility classes exclusively
+- Implement responsive design with Tailwind breakpoints
+- Use Tailwind's color system (bg-blue-500, text-gray-900, etc.)
+- Apply hover, focus, and active states with Tailwind modifiers
+- Use Tailwind spacing scale (p-4, m-2, gap-6, etc.)
+- Implement dark mode with dark: prefix
+- Use group and peer utilities for complex interactions
+
+### Example Component Structure
+```typescript
+// Button.tsx
+'use client'; // Only if component needs interactivity
+
+import { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-blue-600 text-white hover:bg-blue-700',
+        secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
+        outline: 'border border-gray-300 bg-transparent hover:bg-gray-100'
+      },
+      size: {
+        sm: 'h-8 px-3 text-xs',
+        md: 'h-10 px-4',
+        lg: 'h-12 px-6 text-base'
+      }
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'md'
+    }
+  }
+);
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    return (
+      <button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };
+```
+
+### Accessibility Requirements
+- Include proper ARIA labels and roles
+- Implement keyboard navigation for interactive elements
+- Ensure proper color contrast ratios
+- Add skip links for navigation
+- Test with screen readers
+- Include focus management for modals and dropdowns
+
+### Performance Guidelines
+- Use React.memo for pure components
+- Implement proper dependency arrays in useEffect
+- Use useMemo and useCallback judiciously
+- Lazy load non-critical components
+- Optimize bundle size with tree shaking
+
+## Design Token System
+
+### Token Structure
+```typescript
+const tokens = {
+  colors: {
+    primary: {
+      50: '#...',
+      500: '#...',
+      900: '#...'
+    }
+  },
+  typography: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      mono: ['Fira Code', 'monospace']
+    },
+    fontSize: {
+      xs: ['12px', '16px'],
+      sm: ['14px', '20px']
+    }
+  },
+  spacing: {
+    xs: '4px',
+    sm: '8px'
+  }
+} as const;
+```
+
+### Token Usage
+- Reference tokens through CSS custom properties
+- Use semantic tokens over primitive tokens in components
+- Implement platform-specific token variations (web, email, mobile)
+- Create theme variants (light, dark, high-contrast)
+
+## Content Management Rules
+
+### Internationalization
+- Use namespaced keys: `common.actions.save`
+- Implement pluralization rules
+- Support RTL languages
+- Use ICU message format for complex messages
+- Store translations in JSON files by feature
+
+### Content Structure
+```typescript
+interface ContentKey {
+  key: string;
+  defaultMessage: string;
+  description?: string;
+  context?: string;
+}
+```
+
+## Email Template Guidelines
+
+### Email Component Rules
+- Use table-based layouts for email compatibility
+- Implement inline CSS for maximum client support
+- Include MSO conditional comments for Outlook
+- Use web-safe fonts with fallbacks
+- Implement dark mode support with @media queries
+
+### Email Testing
+- Test across major email clients (Gmail, Outlook, Apple Mail)
+- Validate HTML and CSS for email standards
+- Include plain text alternatives
+- Test preview text optimization
+- Verify tracking pixel implementation
+
+## Testing Standards
+
+### Unit Testing
+- Test component rendering with different props
+- Test user interactions and event handlers
+- Mock external dependencies
+- Test accessibility with jest-axe
+- Achieve 80%+ code coverage
+
+### Visual Testing
+- Use Chromatic for visual regression testing
+- Test responsive breakpoints
+- Test theme variations
+- Test loading and error states
+- Test accessibility features
+
+### Integration Testing
+- Test complete user workflows
+- Test form submissions and validation
+- Test navigation patterns
+- Test email template rendering
+
+## Documentation Requirements
+
+### Component Documentation
+- Include usage examples in Storybook
+- Document all props with TypeScript
+- Provide do's and don'ts guidelines
+- Include accessibility notes
+- Show responsive behavior examples
+
+### API Documentation
+- Use JSDoc comments for all public APIs
+- Document design decisions and rationale
+- Include migration guides for breaking changes
+- Provide code examples for common patterns
+
+## MCP Configuration
+
+### Context7 MCP Server
+```json
+{
+  "mcpServers": {
+    "Context7": {
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}
+```
+
+### GitHub Integration
+- GitHub integration is configured through Cursor's built-in integrations section
+- Provides access to repository data, pull requests, and issues
+- No additional MCP configuration required
+
+## Monorepo Workspace Configuration
+```json
+{
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "tools/*"
+  ]
+}
+```
+
+## Development Scripts
+```yaml
+scripts:
+  # Development
+  dev: "turbo run dev"
+  build: "turbo run build"
+  
+  # Code Quality
+  lint: "turbo run lint"
+  lint:fix: "turbo run lint -- --fix"
+  type-check: "turbo run type-check"
+  
+  # Testing
+  test: "turbo run test"
+  test:watch: "turbo run test -- --watch"
+  test:coverage: "turbo run test -- --coverage"
+  test:e2e: "playwright test"
+  
+  # Documentation
+  storybook: "turbo run storybook"
+  storybook:build: "turbo run build-storybook"
+  docs: "turbo run docs:dev"
+  
+  # Design Tokens
+  tokens:build: "turbo run tokens:build"
+  tokens:sync: "node tools/scripts/sync-figma-tokens.js"
+  
+  # Email Templates
+  email:build: "turbo run email:build"
+  email:preview: "turbo run email:preview"
+  
+  # Release
+  changeset: "changeset"
+  version: "changeset version"
+  publish: "changeset publish"
+```
+
+## Git Workflow & Pre-commit Configuration
+```yaml
+precommit:
+  lint-staged:
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write", "git add"]
+    "*.{js,jsx}": ["eslint --fix", "prettier --write", "git add"]
+    "*.{json,md,yml,yaml}": ["prettier --write", "git add"]
+    "*.css": ["prettier --write", "git add"]
+
+commitlint:
+  extends: ["@commitlint/config-conventional"]
+  rules:
+    type-enum: [2, "always", ["feat", "fix", "docs", "style", "refactor", "test", "chore", "build", "ci", "perf", "revert"]]
+    scope-enum: [2, "always", ["tokens", "components", "email", "content", "icons", "utils", "docs", "storybook", "ci"]]
+```
+
+## Testing Configuration
+```yaml
+jest:
+  coverageThreshold:
+    global:
+      branches: 80
+      functions: 80
+      lines: 80
+      statements: 80
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"]
+  testMatch: ["**/__tests__/**/*.(test|spec).(ts|tsx|js|jsx)"]
+  collectCoverageFrom:
+    - "packages/*/src/**/*.{ts,tsx}"
+    - "!packages/*/src/**/*.d.ts"
+    - "!packages/*/src/**/*.stories.tsx"
+
+playwright:
+  testDir: "./tests/e2e"
+  fullyParallel: true
+  forbidOnly: true
+  retries: 2
+  workers: 4
+  reporter: "html"
+  use:
+    baseURL: "http://localhost:3000"
+    trace: "on-first-retry"
+```
+
+## Build and Deployment
+
+### Storybook Deployment
+```yaml
+storybookDeploy:
+  provider: "vercel"
+  project: "boombox-design-system-storybook"
+  domain: "boombox-storybook.vercel.app"
+  buildCommand: "turbo run build-storybook"
+  outputDir: "storybook-static"
+```
+
+### Documentation Site Deployment
+```yaml
+docsDeploy:
+  provider: "vercel"
+  project: "boombox-design-system-docs"
+  domain: "boombox-docs.vercel.app"
+  buildCommand: "turbo run docs:build"
+  outputDir: "apps/documentation/out"
+```
+
+### Build Optimization
+- Use Turbo for monorepo builds with proper caching
+- Implement bundle analysis with @next/bundle-analyzer
+- Optimize for tree shaking with proper exports
+- Generate type declarations for all packages
+- Create platform-specific builds (web, email, mobile)
+
+### Release Process & Versioning
+```yaml
+versioning:
+  tool: "changesets"
+  config:
+    access: "public"
+    baseBranch: "main"
+    updateInternalDependencies: "patch"
+    linked: []
+    commit: false
+    
+changelog:
+  generator: "@changesets/changelog-github"
+  options:
+    repo: "hemingto/boombox-design-system"
+```
+
+## Code Quality Rules
+
+### Linting and Formatting Configuration
+```yaml
+eslint:
+  extends:
+    - "next/core-web-vitals"
+    - "@typescript-eslint/recommended"
+    - "plugin:jsx-a11y/recommended"
+    - "plugin:storybook/recommended"
+  plugins:
+    - "@typescript-eslint"
+    - "jsx-a11y"
+    - "import"
+  rules:
+    # TypeScript
+    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-explicit-any": "warn"
+    "@typescript-eslint/prefer-const": "error"
+    
+    # Accessibility
+    "jsx-a11y/alt-text": "error"
+    "jsx-a11y/aria-props": "error"
+    "jsx-a11y/aria-proptypes": "error"
+    "jsx-a11y/aria-unsupported-elements": "error"
+    "jsx-a11y/role-has-required-aria-props": "error"
+    "jsx-a11y/role-supports-aria-props": "error"
+    
+    # Import organization
+    "import/order": ["error", {
+      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+      "newlines-between": "always",
+      "alphabetize": { "order": "asc" }
+    }]
+
+prettier:
+  semi: true
+  trailingComma: "es5"
+  singleQuote: true
+  printWidth: 80
+  tabWidth: 2
+  useTabs: false
+  endOfLine: "lf"
+```
+
+### Design Token Validation
+```yaml
+tokens:
+  validation:
+    schema: "./tools/schemas/tokens.schema.json"
+    tools: ["style-dictionary", "theo"]
+  
+  styleDirectory:
+    source: ["packages/tokens/src/**/*.json"]
+    platforms:
+      css:
+        transformGroup: "css"
+        buildPath: "packages/tokens/build/css/"
+        files:
+          - destination: "variables.css"
+            format: "css/variables"
+      js:
+        transformGroup: "js"
+        buildPath: "packages/tokens/build/js/"
+        files:
+          - destination: "tokens.js"
+            format: "javascript/es6"
+      tailwind:
+        transformGroup: "js"
+        buildPath: "packages/tokens/build/"
+        files:
+          - destination: "tailwind.config.js"
+            format: "javascript/tailwind-config"
+```
+
+### Git Workflow
+- Use conventional commits
+- Require PR reviews for changes
+- Run automated tests on PRs
+- Use branch protection rules
+- Squash merge to main
+
+## Performance Monitoring
+
+### Bundle Analysis
+- Monitor bundle size changes
+- Track unused code
+- Analyze dependency impact
+- Measure runtime performance
+- Monitor Core Web Vitals
+
+### Component Performance
+- Measure render times
+- Track memory usage
+- Monitor re-render frequency
+- Analyze component complexity
+- Profile critical user paths
+
+## AI Assistant Guidelines for Next.js + TypeScript + Tailwind
+
+When helping with this design system:
+
+1. **Component Generation**: 
+   - Always create .tsx files with proper TypeScript interfaces
+   - Use only Tailwind CSS classes for styling
+   - Follow Next.js App Router conventions
+   - Include 'use client' directive only when necessary
+
+2. **TypeScript Requirements**:
+   - Provide strict type definitions for all props
+   - Use proper Next.js types (NextPage, Metadata, etc.)
+   - Export component prop interfaces
+   - Implement generic constraints when needed
+
+3. **Tailwind CSS**:
+   - Use only Tailwind utility classes
+   - Implement responsive design with Tailwind breakpoints
+   - Use Tailwind's color and spacing systems
+   - Apply dark mode with dark: prefix
+
+4. **Next.js Integration**:
+   - Ensure components work with Server Components
+   - Use Next.js Image component for images
+   - Support Next.js routing and navigation
+   - Optimize for SSR/SSG when applicable
+
+5. **Code Examples**: Always provide complete, working examples that demonstrate:
+   - Proper TypeScript typing
+   - Tailwind CSS implementation
+   - Next.js best practices
+   - Component composition patterns
+
+6. **File Structure**: Follow Next.js conventions:
+   ```
+   components/
+   ├── ui/           # Reusable UI components
+   ├── forms/        # Form components
+   ├── layout/       # Layout components
+   └── providers/    # Context providers
+   ```
+
+7. **Configuration**: Help with:
+   - tailwind.config.js setup
+   - next.config.js optimization
+   - TypeScript configuration
+   - ESLint/Prettier setup
+
+## Common Patterns to Follow
+
+### Variant System
+```typescript
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md font-medium transition-colors",
+  {
+    variants: {
+      variant: {
+        primary: "bg-primary text-primary-foreground hover:bg-primary/90",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+      },
+      size: {
+        sm: "h-8 px-3 text-sm",
+        md: "h-10 px-4",
+        lg: "h-12 px-6 text-lg"
+      }
+    },
+    defaultVariants: {
+      variant: "primary",
+      size: "md"
+    }
+  }
+);
+```
+
+### Polymorphic Components
+```typescript
+interface ButtonProps<T extends React.ElementType> {
+  as?: T;
+  variant?: "primary" | "secondary";
+  size?: "sm" | "md" | "lg";
+}
+
+const Button = <T extends React.ElementType = "button">({
+  as,
+  ...props
+}: ButtonProps<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>) => {
+  const Component = as || "button";
+  return <Component {...props} />;
+};
+``` 

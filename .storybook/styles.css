@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional Storybook-specific styles */
+.sb-show-main {
+  @apply font-sans;
+}
+
+/* Custom component styles can be added here if needed */ 

@@ -1,29 +1,17 @@
 import React from 'react';
-import { cn } from '../../utils/cn';
-import { getButtonVariants } from './variants';
 
-// Test comment to trigger Chromatic workflow
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
+interface ButtonProps {
+  label: string;
+  onClick?: () => void;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', children, ...props }, ref) => {
-    const variants = getButtonVariants();
-    
-    return (
-      <button
-        className={cn(variants({ variant, size }), className)}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </button>
-    );
-  }
-);
-
-Button.displayName = 'Button'; 
+export const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+  return (
+    <button
+      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
+};
