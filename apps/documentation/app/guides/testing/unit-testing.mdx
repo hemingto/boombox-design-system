@@ -1,0 +1,282 @@
+export const metadata = {
+  title: 'Unit Testing Guide | Boombox Design System',
+  description: 'Learn how to write effective unit tests for Boombox components',
+};
+
+# Unit Testing Guide
+
+<CalloutBox type="info">
+This guide covers unit testing strategies specifically for Boombox Design System components using Jest and React Testing Library.
+</CalloutBox>
+
+## Testing Philosophy
+
+Our unit testing approach focuses on:
+
+- **User-centric testing** - Test what users see and interact with
+- **Accessibility-first** - Ensure components work with assistive technologies
+- **Behavior over implementation** - Test the "what" not the "how"
+- **Maintainable tests** - Tests that don't break with refactoring
+
+## Basic Component Testing
+
+Here's how to test a simple Button component:
+
+```tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Button } from '@boombox/components';
+
+describe('Button', () => {
+  it('renders with correct text', () => {
+    render(<Button>Click me</Button>);
+    
+    expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument();
+  });
+
+  it('handles click events', async () => {
+    const user = userEvent.setup();
+    const handleClick = jest.fn();
+    
+    render(<Button onClick={handleClick}>Click me</Button>);
+    
+    await user.click(screen.getByRole('button'));
+    
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('applies variant styles correctly', () => {
+    render(<Button variant="secondary">Secondary</Button>);
+    
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('bg-secondary');
+  });
+});
+```
+
+## Testing Interactive Components
+
+For more complex components with state:
+
+<ComponentDemo title="Modal Testing Example">
+```tsx
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Modal } from '@boombox/components';
+
+describe('Modal', () => {
+  it('opens and closes correctly', async () => {
+    const user = userEvent.setup();
+    
+    render(
+      <Modal>
+        <Modal.Trigger>Open Modal</Modal.Trigger>
+        <Modal.Content>
+          <Modal.Header>Modal Title</Modal.Header>
+          <Modal.Body>Modal content</Modal.Body>
+          <Modal.Footer>
+            <Modal.Close>Close</Modal.Close>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    );
+
+    // Modal should be closed initially
+    expect(screen.queryByText('Modal Title')).not.toBeInTheDocument();
+
+    // Open modal
+    await user.click(screen.getByText('Open Modal'));
+    expect(screen.getByText('Modal Title')).toBeInTheDocument();
+
+    // Close modal
+    await user.click(screen.getByText('Close'));
+    await waitFor(() => {
+      expect(screen.queryByText('Modal Title')).not.toBeInTheDocument();
+    });
+  });
+});
+```
+</ComponentDemo>
+
+## Accessibility Testing
+
+Every component should include accessibility tests:
+
+```tsx
+import { render } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import { Button } from '@boombox/components';
+
+expect.extend(toHaveNoViolations);
+
+describe('Button Accessibility', () => {
+  it('should not have accessibility violations', async () => {
+    const { container } = render(<Button>Accessible Button</Button>);
+    const results = await axe(container);
+    
+    expect(results).toHaveNoViolations();
+  });
+
+  it('supports keyboard navigation', async () => {
+    const user = userEvent.setup();
+    const handleClick = jest.fn();
+    
+    render(<Button onClick={handleClick}>Keyboard Button</Button>);
+    
+    const button = screen.getByRole('button');
+    button.focus();
+    
+    await user.keyboard('{Enter}');
+    expect(handleClick).toHaveBeenCalled();
+    
+    await user.keyboard('{Space}');
+    expect(handleClick).toHaveBeenCalledTimes(2);
+  });
+});
+```
+
+## Form Testing
+
+Testing form components requires special attention to validation and user interactions:
+
+<ComponentDemo title="Form Field Testing">
+```tsx
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { FormField, Input } from '@boombox/components';
+
+describe('FormField', () => {
+  it('displays validation errors', async () => {
+    const user = userEvent.setup();
+    
+    render(
+      <FormField name="email" required>
+        <FormField.Label>Email</FormField.Label>
+        <FormField.Control>
+          <Input type="email" />
+        </FormField.Control>
+        <FormField.Error />
+      </FormField>
+    );
+
+    const input = screen.getByLabelText('Email');
+    
+    // Enter invalid email
+    await user.type(input, 'invalid-email');
+    await user.tab(); // Trigger blur event
+    
+    await waitFor(() => {
+      expect(screen.getByText(/please enter a valid email/i)).toBeInTheDocument();
+    });
+  });
+});
+```
+</ComponentDemo>
+
+## Testing Custom Hooks
+
+When testing custom hooks, use the `renderHook` utility:
+
+```tsx
+import { renderHook, act } from '@testing-library/react';
+import { useDisclosure } from '@boombox/components';
+
+describe('useDisclosure', () => {
+  it('manages open/close state correctly', () => {
+    const { result } = renderHook(() => useDisclosure());
+
+    expect(result.current.isOpen).toBe(false);
+
+    act(() => {
+      result.current.onOpen();
+    });
+
+    expect(result.current.isOpen).toBe(true);
+
+    act(() => {
+      result.current.onClose();
+    });
+
+    expect(result.current.isOpen).toBe(false);
+  });
+});
+```
+
+## Best Practices
+
+<CalloutBox type="success">
+**Do's:**
+- Test user interactions, not implementation details
+- Use semantic queries (`getByRole`, `getByLabelText`)
+- Include accessibility tests for all interactive components
+- Test error states and edge cases
+- Use meaningful test descriptions
+</CalloutBox>
+
+<CalloutBox type="error">
+**Don'ts:**
+- Don't test internal state or private methods
+- Don't rely on CSS classes for assertions (unless testing styling)
+- Don't test third-party library functionality
+- Don't write tests that are too coupled to implementation
+- Don't forget to test loading and error states
+</CalloutBox>
+
+## Common Testing Patterns
+
+### Testing Async Components
+
+```tsx
+import { render, screen, waitFor } from '@testing-library/react';
+import { AsyncButton } from '@boombox/components';
+
+describe('AsyncButton', () => {
+  it('shows loading state during async operation', async () => {
+    const asyncAction = jest.fn(() => 
+      new Promise(resolve => setTimeout(resolve, 100))
+    );
+    
+    render(<AsyncButton onClick={asyncAction}>Submit</AsyncButton>);
+    
+    const button = screen.getByRole('button');
+    await user.click(button);
+    
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    
+    await waitFor(() => {
+      expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+    });
+  });
+});
+```
+
+### Testing with Context
+
+```tsx
+import { render, screen } from '@testing-library/react';
+import { ThemeProvider } from '@boombox/components';
+import { Button } from '@boombox/components';
+
+const renderWithTheme = (ui: React.ReactElement, theme = 'light') => {
+  return render(
+    <ThemeProvider theme={theme}>
+      {ui}
+    </ThemeProvider>
+  );
+};
+
+describe('Button with Theme', () => {
+  it('applies dark theme styles', () => {
+    renderWithTheme(<Button>Themed Button</Button>, 'dark');
+    
+    const button = screen.getByRole('button');
+    expect(button).toHaveClass('dark:bg-gray-800');
+  });
+});
+```
+
+## Next Steps
+
+- [Visual Testing Guide](./visual-testing) - Learn about visual regression testing
+- [E2E Testing Guide](./e2e-testing) - End-to-end testing strategies
+- [Testing Utilities](../../../api-reference/testing) - Available testing utilities 

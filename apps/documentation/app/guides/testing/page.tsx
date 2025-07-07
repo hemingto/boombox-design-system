@@ -84,13 +84,39 @@ export default function TestingGuidePage() {
           </div>
         </div>
 
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+          📚 Detailed Testing Guides
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+            <h3 className="text-lg font-semibold mb-2">Unit Testing</h3>
+            <p className="text-gray-600 mb-4">Learn how to write effective unit tests for components using Jest and React Testing Library.</p>
+            <a href="/guides/testing/unit-testing" className="text-blue-600 hover:text-blue-800 font-medium">
+              Read Guide →
+            </a>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+            <h3 className="text-lg font-semibold mb-2">Visual Testing</h3>
+            <p className="text-gray-600 mb-4">Prevent visual regressions with automated visual testing using Chromatic.</p>
+            <a href="/guides/testing/visual-testing" className="text-blue-600 hover:text-blue-800 font-medium">
+              Read Guide →
+            </a>
+          </div>
+          <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+            <h3 className="text-lg font-semibold mb-2">E2E Testing</h3>
+            <p className="text-gray-600 mb-4">Test complete user workflows with Playwright end-to-end testing.</p>
+            <a href="/guides/testing/e2e-testing" className="text-blue-600 hover:text-blue-800 font-medium">
+              Read Guide →
+            </a>
+          </div>
+        </div>
+
+        <div className="bg-blue-50 border-l-4 border-blue-400 p-4">
           <div className="flex">
             <div className="ml-3">
-              <p className="text-sm text-yellow-700">
-                <strong>Work in Progress:</strong> This documentation page is being developed. 
-                The complete testing guide with examples and best practices is available in the 
-                repository&apos;s <code>TESTING.md</code> file.
+              <p className="text-sm text-blue-700">
+                <strong>Quick Reference:</strong> For a quick overview of testing commands and setup, 
+                see the <code>TESTING.md</code> file in the repository root.
               </p>
             </div>
           </div>

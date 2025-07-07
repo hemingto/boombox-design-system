@@ -10,7 +10,7 @@ This is a comprehensive design system specifically built for Next.js application
 - **React**: React 18+ with Server Components support
 - **Build Tools**: Turbo (monorepo), Next.js built-in bundler
 - **Testing**: Jest, React Testing Library, Playwright, Chromatic
-- **Documentation**: Storybook, MDX, Next.js docs site
+- **Documentation**: Storybook, MDX (for rich documentation content), Next.js docs site
 - **Email**: React Email, MJML, Nodemailer
 
 ## Next.js Specific Requirements
@@ -63,6 +63,85 @@ ComponentName/
 - Configure Tailwind through tailwind.config.js for custom tokens
 - Use Tailwind CSS IntelliSense for autocompletion
 
+## Component Development Process
+
+### Step-by-Step Component Creation
+
+Follow this systematic approach when creating new components:
+
+#### 1. 🧠 Plan the Component
+- Define atomic level: atom, molecule, organism, or template
+- Confirm requirements (variant support, interactivity, accessibility)
+- Link Figma source if applicable
+- Sketch required props, tokens, responsive behavior
+
+#### 2. 📁 Scaffold the Component Folder
+Inside the appropriate layer (e.g. primitives, patterns), create:
+
+```
+src/ComponentName/
+├── ComponentName.tsx          # Main component
+├── ComponentName.stories.tsx  # Storybook stories
+├── ComponentName.mdx          # MDX documentation
+├── ComponentName.test.tsx     # Unit tests
+├── variants.ts               # CVA variant definitions
+├── types.ts                  # TypeScript prop types
+└── index.ts                  # Barrel export
+```
+
+#### 3. ⚛️ Build the Component (ComponentName.tsx)
+- Use TypeScript + Tailwind CSS only
+- Add forwardRef + as prop for polymorphism
+- Use design tokens for spacing, colors, typography
+- Add 'use client' only if component is interactive
+- Implement semantic HTML elements for SEO
+- Include proper ARIA attributes
+
+#### 4. 🧮 Define Variants (variants.ts)
+- Use class-variance-authority (cva) for scalable class system
+- Define size variants: xs, sm, md, lg, xl
+- Create visual variants: primary, secondary, outline, etc.
+- Include state variants: default, hover, focus, disabled
+
+#### 5. ✍️ Define TypeScript Props (types.ts)
+- Export component props interface
+- Use VariantProps<typeof variants> from CVA
+- Add proper ARIA types and HTML attributes
+- Include polymorphic 'as' prop support
+
+#### 6. 🧪 Write Unit Tests (ComponentName.test.tsx)
+- Test basic rendering with React Testing Library
+- Verify variant class applications
+- Test ref forwarding (if applicable)
+- Run accessibility checks with jest-axe
+- Test user interactions and keyboard navigation
+
+#### 7. 📖 Create Stories (ComponentName.stories.tsx)
+- Create examples for each variant and size
+- Use args for live Storybook controls
+- Add chromatic: true for visual regression testing
+- Include accessibility and documentation tabs
+
+#### 8. 📘 Write MDX Documentation (ComponentName.mdx)
+- Use MDX with live component examples
+- Include ComponentDemo, CalloutBox, and PropsTable
+- Document accessibility features and keyboard navigation
+- Provide real-world usage examples
+- Add design guidelines and best practices
+
+#### 9. ♿️ Add Accessibility & SEO Checks
+- Ensure keyboard focus support
+- Test with screen readers
+- Verify semantic HTML structure
+- Add meta tags for documentation pages
+- Run automated accessibility audits
+
+#### 10. 👀 Run Visual Tests
+- Push branch with new stories
+- Review Chromatic visual diffs
+- Approve new baselines
+- Ensure responsive breakpoints work correctly
+
 ## Component Development Rules (Next.js + TypeScript + Tailwind)
 
 ### Component Structure Requirements
@@ -72,6 +151,8 @@ ComponentName/
 - Use 'use client' directive only for interactive components
 - Support Next.js Image component when dealing with images
 - Follow Next.js naming conventions for pages and components
+- Use semantic HTML elements for better SEO and accessibility
+- Implement proper meta tags using Next.js Metadata API
 
 ### Props and APIs (TypeScript)
 - Every component MUST have a TypeScript interface for props
@@ -152,6 +233,16 @@ export { Button, buttonVariants };
 - Test with screen readers
 - Include focus management for modals and dropdowns
 
+### SEO Requirements
+- Use semantic HTML elements (header, nav, main, section, article, aside, footer)
+- Implement proper heading hierarchy (h1 → h2 → h3)
+- Add descriptive alt text for images and icons
+- Use Next.js Metadata API for dynamic meta tags
+- Include structured data (JSON-LD) for rich snippets
+- Optimize for Core Web Vitals (LCP, FID, CLS)
+- Implement proper URL structure and canonical tags
+- Support Open Graph and Twitter Card meta tags
+
 ### Performance Guidelines
 - Use React.memo for pure components
 - Implement proper dependency arrays in useEffect
@@ -196,6 +287,67 @@ const tokens = {
 
 ## Documentation Guidelines
 
+### MDX Integration for Rich Documentation
+
+#### When to Use MDX vs Regular TypeScript Pages
+- **Use `.mdx` files for**:
+  - Component documentation with live examples
+  - Guides with interactive demos
+  - Content with custom formatting needs
+  - Documentation requiring design system components
+  - Complex tutorials with embedded components
+
+- **Use `.tsx` files for**:
+  - Overview/landing pages
+  - Simple documentation pages
+  - Pages requiring complex data fetching
+  - Custom layouts and navigation
+
+#### MDX File Structure
+```
+apps/documentation/app/
+├── guides/
+│   ├── testing/
+│   │   ├── page.tsx              # Overview page
+│   │   ├── unit-testing.mdx      # Rich guide with examples
+│   │   ├── visual-testing.mdx    # Interactive content
+│   │   └── e2e-testing.mdx       # Detailed tutorials
+│   └── accessibility/
+│       ├── page.tsx              # Overview
+│       ├── color-contrast.mdx    # Interactive examples
+│       └── keyboard-nav.mdx      # Live demos
+├── components/
+│   ├── primitives/
+│   │   ├── button.mdx            # Component docs with demos
+│   │   ├── input.mdx             # API reference with examples
+│   │   └── page.tsx              # Category overview
+│   └── patterns/
+│       ├── modal.mdx             # Complex component docs
+│       └── form.mdx              # Form pattern examples
+└── content/                      # Shared MDX components
+    ├── components/
+    │   ├── PropsTable.tsx        # API documentation tables
+    │   ├── ComponentDemo.tsx     # Live component demos
+    │   └── CalloutBox.tsx        # Styled callouts
+    └── snippets/                 # Reusable code snippets
+```
+
+#### MDX Custom Components
+The following custom components are available in all MDX files:
+
+- **`<ComponentDemo>`**: Live component demonstrations
+- **`<CalloutBox>`**: Styled information boxes (info, warning, error, success)
+- **`<PropsTable>`**: Component API documentation tables
+- **Design System Components**: All `@boombox/components` available directly
+
+#### MDX Best Practices
+- Include metadata export for SEO and navigation
+- Use semantic HTML enhanced with Tailwind classes
+- Embed live component examples for better understanding
+- Cross-reference related components and guides
+- Include accessibility notes for all interactive examples
+- Test all code examples to ensure they work
+
 ### Documentation Structure and Placement
 
 #### Primary Documentation Location: `apps/documentation/`
@@ -233,12 +385,13 @@ Keep essential quick-reference docs at the repository root for immediate access:
 ```
 
 #### Documentation Creation Rules
-1. **Comprehensive Guides**: Create in `apps/documentation/app/guides/[guide-name]/page.tsx`
-2. **Component Documentation**: Create in `apps/documentation/app/components/[category]/[component]/page.tsx`
+1. **Comprehensive Guides**: Create in `apps/documentation/app/guides/[guide-name]/page.tsx` or use `.mdx` for rich content
+2. **Component Documentation**: Create in `apps/documentation/app/components/[category]/[component]/page.tsx` or `.mdx` for interactive examples
 3. **Quick References**: Create as `.md` files in the root directory
 4. **Cross-Reference**: Root-level docs should reference the comprehensive documentation app
-5. **Interactive Examples**: Use the documentation app for live component demos
+5. **Interactive Examples**: Use the documentation app for live component demos with MDX
 6. **API Documentation**: Generate from TypeScript interfaces in the documentation app
+7. **Rich Content**: Use `.mdx` files for documentation that needs custom components, interactive demos, or complex formatting
 
 #### Documentation Content Standards
 - **Use TypeScript examples** - All code examples must be TypeScript
@@ -586,37 +739,45 @@ tokens:
 
 When helping with this design system:
 
-1. **Component Generation**: 
+1. **Component Development Process**:
+   - Follow the 10-step component creation process above
+   - Always start by planning the component's atomic level and requirements
+   - Create complete component folders with all necessary files
+   - Ensure each step is completed before moving to the next
+
+2. **Component Generation**: 
    - Always create .tsx files with proper TypeScript interfaces
    - Use only Tailwind CSS classes for styling
    - Follow Next.js App Router conventions
    - Include 'use client' directive only when necessary
+   - Implement semantic HTML for SEO optimization
 
-2. **TypeScript Requirements**:
+3. **TypeScript Requirements**:
    - Provide strict type definitions for all props
    - Use proper Next.js types (NextPage, Metadata, etc.)
    - Export component prop interfaces
    - Implement generic constraints when needed
 
-3. **Tailwind CSS**:
+4. **Tailwind CSS**:
    - Use only Tailwind utility classes
    - Implement responsive design with Tailwind breakpoints
    - Use Tailwind's color and spacing systems
    - Apply dark mode with dark: prefix
 
-4. **Next.js Integration**:
+5. **Next.js Integration**:
    - Ensure components work with Server Components
    - Use Next.js Image component for images
    - Support Next.js routing and navigation
    - Optimize for SSR/SSG when applicable
 
-5. **Code Examples**: Always provide complete, working examples that demonstrate:
+6. **Code Examples**: Always provide complete, working examples that demonstrate:
    - Proper TypeScript typing
    - Tailwind CSS implementation
    - Next.js best practices
    - Component composition patterns
+   - MDX integration when creating rich documentation
 
-6. **File Structure**: Follow Next.js conventions:
+7. **File Structure**: Follow Next.js conventions:
    ```
    components/
    ├── ui/           # Reusable UI components
@@ -625,19 +786,22 @@ When helping with this design system:
    └── providers/    # Context providers
    ```
 
-7. **Configuration**: Help with:
+8. **Configuration**: Help with:
    - tailwind.config.js setup
    - next.config.js optimization
    - TypeScript configuration
    - ESLint/Prettier setup
 
-8. **Documentation Creation**: When creating documentation:
-   - **Comprehensive guides** → Create in `apps/documentation/app/guides/[guide-name]/page.tsx`
-   - **Component docs** → Create in `apps/documentation/app/components/[category]/[component]/page.tsx`
+9. **Documentation Creation**: When creating documentation:
+   - **Comprehensive guides** → Create in `apps/documentation/app/guides/[guide-name]/page.tsx` or `.mdx` for rich content
+   - **Component docs** → Create in `apps/documentation/app/components/[category]/[component]/page.tsx` or `.mdx` for interactive examples
    - **Quick references** → Create as `.md` files in root directory
+   - **Rich interactive content** → Use `.mdx` files with custom components (`<ComponentDemo>`, `<CalloutBox>`, `<PropsTable>`)
    - Always include TypeScript examples and accessibility notes
    - Cross-reference between root docs and documentation app
    - Update navigation when adding new documentation sections
+   - Use MDX for documentation that benefits from live component examples or custom formatting
+   - Leverage MDX custom components (`<ComponentDemo>`, `<CalloutBox>`, `<PropsTable>`) for enhanced documentation
 
 ## Common Patterns to Follow
 

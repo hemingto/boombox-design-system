@@ -1,0 +1,269 @@
+export const metadata = {
+  title: 'Button Component | Boombox Design System',
+  description: 'A versatile button component with multiple variants and sizes',
+};
+
+# Button Component
+
+The Button component is a fundamental interactive element used throughout the design system. It provides consistent styling and behavior across different variants and sizes.
+
+<CalloutBox type="info">
+The Button component is built with accessibility in mind and supports keyboard navigation, screen readers, and proper focus management.
+</CalloutBox>
+
+## Basic Usage
+
+<ComponentDemo title="Basic Button Examples">
+  <Button>Default Button</Button>
+  <Button variant="secondary">Secondary Button</Button>
+  <Button variant="outline">Outline Button</Button>
+</ComponentDemo>
+
+```tsx
+import { Button } from '@boombox/components';
+
+export function MyComponent() {
+  return (
+    <div>
+      <Button>Default Button</Button>
+      <Button variant="secondary">Secondary Button</Button>
+      <Button variant="outline">Outline Button</Button>
+    </div>
+  );
+}
+```
+
+## Variants
+
+The Button component supports multiple visual variants:
+
+<ComponentDemo title="Button Variants">
+  <Button variant="primary">Primary</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="outline">Outline</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="link">Link</Button>
+</ComponentDemo>
+
+## Sizes
+
+Different sizes are available to fit various use cases:
+
+<ComponentDemo title="Button Sizes">
+  <Button size="sm">Small</Button>
+  <Button size="md">Medium</Button>
+  <Button size="lg">Large</Button>
+  <Button size="xl">Extra Large</Button>
+</ComponentDemo>
+
+## States
+
+Buttons support various interactive states:
+
+<ComponentDemo title="Button States">
+  <Button>Default</Button>
+  <Button disabled>Disabled</Button>
+  <Button loading>Loading</Button>
+</ComponentDemo>
+
+```tsx
+// Disabled button
+<Button disabled>Disabled Button</Button>
+
+// Loading button with spinner
+<Button loading>Loading...</Button>
+
+// Button with loading state and custom text
+<Button loading loadingText="Processing...">
+  Submit Form
+</Button>
+```
+
+## With Icons
+
+Buttons can include icons for enhanced visual communication:
+
+<ComponentDemo title="Buttons with Icons">
+  <Button leftIcon="plus">Add Item</Button>
+  <Button rightIcon="arrow-right">Continue</Button>
+  <Button variant="outline" leftIcon="download">Download</Button>
+</ComponentDemo>
+
+## Full Width
+
+Buttons can span the full width of their container:
+
+<ComponentDemo title="Full Width Button">
+  <Button fullWidth>Full Width Button</Button>
+</ComponentDemo>
+
+## API Reference
+
+<PropsTable
+  component="Button"
+  props={[
+    {
+      name: 'variant',
+      type: 'primary | secondary | outline | ghost | link',
+      default: 'primary',
+      required: false,
+      description: 'The visual style variant of the button'
+    },
+    {
+      name: 'size',
+      type: 'sm | md | lg | xl',
+      default: 'md',
+      required: false,
+      description: 'The size of the button'
+    },
+    {
+      name: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      required: false,
+      description: 'Whether the button is disabled'
+    },
+    {
+      name: 'loading',
+      type: 'boolean',
+      default: 'false',
+      required: false,
+      description: 'Whether the button is in a loading state'
+    },
+    {
+      name: 'loadingText',
+      type: 'string',
+      required: false,
+      description: 'Text to display when loading (overrides children)'
+    },
+    {
+      name: 'leftIcon',
+      type: 'string | ReactNode',
+      required: false,
+      description: 'Icon to display on the left side of the button'
+    },
+    {
+      name: 'rightIcon',
+      type: 'string | ReactNode',
+      required: false,
+      description: 'Icon to display on the right side of the button'
+    },
+    {
+      name: 'fullWidth',
+      type: 'boolean',
+      default: 'false',
+      required: false,
+      description: 'Whether the button should take the full width of its container'
+    },
+    {
+      name: 'onClick',
+      type: '(event: MouseEvent) => void',
+      required: false,
+      description: 'Callback fired when the button is clicked'
+    },
+    {
+      name: 'type',
+      type: 'button | submit | reset',
+      default: 'button',
+      required: false,
+      description: 'The type attribute of the button element'
+    }
+  ]}
+/>
+
+## Accessibility
+
+The Button component follows WAI-ARIA guidelines:
+
+- **Keyboard Navigation**: Supports Tab navigation and activation with Enter/Space
+- **Screen Reader Support**: Proper labeling and state announcement
+- **Focus Management**: Clear focus indicators and proper focus handling
+- **Loading States**: Announces loading state to screen readers
+
+<CalloutBox type="success">
+**Accessibility Best Practices:**
+- Always provide meaningful button text or aria-label
+- Use the appropriate button type (button, submit, reset)
+- Ensure sufficient color contrast for all variants
+- Test with keyboard navigation and screen readers
+</CalloutBox>
+
+## Examples
+
+### Form Submission
+
+```tsx
+import { Button } from '@boombox/components';
+import { useState } from 'react';
+
+export function FormExample() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      console.log('Form submitted successfully');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* Form fields */}
+      <Button 
+        type="submit" 
+        loading={isSubmitting}
+        loadingText="Submitting..."
+      >
+        Submit Form
+      </Button>
+    </form>
+  );
+}
+```
+
+### Confirmation Dialog
+
+```tsx
+import { Button } from '@boombox/components';
+
+export function ConfirmationDialog({ onConfirm, onCancel }) {
+  return (
+    <div className="flex gap-3">
+      <Button variant="outline" onClick={onCancel}>
+        Cancel
+      </Button>
+      <Button variant="primary" onClick={onConfirm}>
+        Confirm
+      </Button>
+    </div>
+  );
+}
+```
+
+## Design Guidelines
+
+<CalloutBox type="info">
+**When to Use:**
+- Primary actions (save, submit, continue)
+- Secondary actions (cancel, back, edit)
+- Destructive actions (delete, remove)
+- Navigation actions (next, previous)
+</CalloutBox>
+
+<CalloutBox type="warning">
+**Avoid:**
+- Using too many primary buttons in one view
+- Using buttons for non-actionable content (use links instead)
+- Unclear or ambiguous button labels
+- Buttons that don't provide clear feedback
+</CalloutBox>
+
+## Related Components
+
+- [Link](./link) - For navigation actions
+- [IconButton](./icon-button) - For icon-only actions
+- [ButtonGroup](../patterns/button-group) - For grouped button actions 
